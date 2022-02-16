@@ -1,12 +1,12 @@
 import sumy_summarize
 import ts6
 import pandas
-#first sentenc
+
 MINI_WORD = 190
 MID_WORD = 530
 LONG_WORD = 1080
 RESULT_LIST = []
-#second sentence
+
 # Count the word
 def word_count(string):
     return (len(string.strip().split(" ")))
