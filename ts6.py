@@ -6,7 +6,7 @@ from heapq import nlargest
 
 def summarize(text):
 
-    doc = text
+    doc = str(text)
 
     nlp = spacy.load('en_core_web_trf')
     doc = nlp(doc)
