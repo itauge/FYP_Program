@@ -9,7 +9,8 @@ RESULT_LIST = []
 
 # Count the word
 def word_count(string):
-    return (len(string.strip().split(" ")))
+    word = len(str(string).strip().split(" "))
+    return word
 
 def main():
     #Read the excel file, get the content
@@ -23,15 +24,17 @@ def main():
             result = sumy_summarize.fileDataSummary(abstract, sumy_summarize.TR)
         elif wordCount > MID_WORD:
             result = ts6.summarize(abstract)
+            # result = sumy_summarize.fileDataSummary(abstract, sumy_summarize.TR)
         elif wordCount > MINI_WORD:
             result = sumy_summarize.fileDataSummary(abstract, sumy_summarize.TR)
         else:
             result = ts6.summarize(abstract)
+            # result = sumy_summarize.fileDataSummary(abstract, sumy_summarize.TR)
 
         RESULT_LIST.append(result)
 
     #Save to the excel
-    output_data = pandas.DataFrame(RESULT_LIST, columns="AfterSummarize")
+    output_data = pandas.DataFrame(RESULT_LIST, columns=["AfterSummarize"])
     output_data.to_csv("text.csv", index=False)
 
 if __name__ == "__main__":
