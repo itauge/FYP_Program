@@ -11,7 +11,7 @@ import os                        # provides functions for creating and removing 
 import pandas as pd              # flexible open source data analysis/manipulation tool
 import glob                      # generates lists of files matching given patterns
 import pdfplumber                # extracts information from .pdf documents
-
+#hello world
 """
 Obtain key words from repetitive documents, then extract as a dataframe to an .xlsx !
 """
