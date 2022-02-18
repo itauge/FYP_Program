@@ -8,7 +8,7 @@ def summarize(text):
 
     doc = str(text)
 
-    nlp = spacy.load('en_core_web_trf')
+    nlp = spacy.load('en_core_web_lg')
     doc = nlp(doc)
 
     #lemmatize words
