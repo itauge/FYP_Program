@@ -20,10 +20,20 @@ def main():
     # dataframe = pandas.read_excel("H:\FYP\Team 6\Categorized 44 Selected Journal\Cluster 2\sample_excel.xlsx")
     # abstract_list = dataframe["Abstract"].tolist()
 
-    #Method 2 : WOS Abstract
-    abstract_list = wos_simplify.get_Abstract()
+    #Method 2 : WOS dataframe
+    # dataframe = wos_simplify.modify_WOS_dataframe()
+    # abstract_list = dataframe["Abstract"].tolist()
+
+    #Method 3 : VOS dataframe
+    dataframe = wos_simplify.modify_VOS_dataframe()
+    id_list = dataframe["id"].tolist()
+    cluster_list = dataframe["cluster"].tolist()
+    abstract_list = dataframe["Abstract"].tolist()
+
+
+
     #Result of the excel file
-    wos_simplify.output()
+    # wos_simplify.output()
 
     for abstract in abstract_list:
         wordCount = word_count(abstract)
@@ -40,8 +50,10 @@ def main():
         RESULT_LIST.append(result)
 
     # Save to the excel
-    output_data = pandas.DataFrame(RESULT_LIST, columns=["AfterSummarize"])
-    output_data.to_csv("text.csv", index=False)
+    data = {'ID': id_list, 'Cluster': cluster_list, 'Abstract': abstract_list, 'AfterSummarize': RESULT_LIST}
+    output_data = pandas.DataFrame(data)
+    # output_data = pandas.DataFrame(RESULT_LIST, columns=["AfterSummarize"])
+    output_data.to_csv("result.csv", index=False)
 
 
 if __name__ == "__main__":
