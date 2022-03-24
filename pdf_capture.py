@@ -60,7 +60,7 @@ def pdf_capture():
     # create an empty dataframe, from which keywords from multiple .pdf files will be later appended by rows.
     my_dataframe = pd.DataFrame()
 
-    for files in glob.glob("H:\FYP\Team 6\Categorized 44 Selected Journal\Cluster 2\*.pdf"):
+    for files in glob.glob("C:\\Users\itaug\Desktop\FYP\\all_pdf\*.pdf"):
 
             text = extract_text_from_pdf(files)
             text = " ".join(text.split())
@@ -71,6 +71,10 @@ def pdf_capture():
             #     text = " ".join(text.split())
 
             # concluding remarks
+
+            # get the file name
+            head, tail = os.path.split(files)
+            id = tail.split(".")[0]
 
             # obtain keyword #1
             start = ['abstract']
@@ -83,7 +87,7 @@ def pdf_capture():
             keyword2 = get_keyword(start, end, text.lower())
 
             # create a list with the keywords extracted from current document.
-            my_list = [keyword1, keyword2]
+            my_list = [id, keyword1, keyword2]
 
             # append my list as a row in the dataframe.
             my_list = pd.Series(my_list)
@@ -95,18 +99,20 @@ def pdf_capture():
             print("Document's keywords have been extracted successfully!")
 
     # rename dataframe columns using dictionaries.
-    my_dataframe = my_dataframe.rename(columns={0:'Abstract',
-                                                    1:'Conclusion'
-                                                    })
+    my_dataframe = my_dataframe.rename(columns={0: 'id',
+                                                1: 'Abstract',
+                                                2: 'Conclusion'})
 
     # change my current working directory
-    save_path = ('H:\FYP\Team 6\Categorized 44 Selected Journal\Cluster 2')
+    save_path = ('C:\\Users\itaug\Desktop\FYP\\all_pdf')
     os.chdir(save_path)
 
     # extract my dataframe to an .xlsx file!
-    my_dataframe.to_excel('sample_excel.xlsx', sheet_name = 'my dataframe')
+    my_dataframe.to_excel('sample_excel.xlsx', sheet_name='my dataframe')
     # print("")
     # print(my_dataframe)
+
+    return my_dataframe
 
 if __name__ == '__main__':
     pdf_capture()

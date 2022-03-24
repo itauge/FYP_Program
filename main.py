@@ -2,11 +2,13 @@ import sumy_summarize
 import ts6
 import wos_simplify
 import pandas
+import pdf_capture
 
 MINI_WORD = 190
 MID_WORD = 530
 LONG_WORD = 1080
-RESULT_LIST = []
+ABSTRACT_RESULT_LIST = []
+CONCLUSION_RESULT_LIST = []
 
 
 # Count the word
@@ -20,19 +22,22 @@ def main():
     # dataframe = pandas.read_excel("H:\FYP\Team 6\Categorized 44 Selected Journal\Cluster 2\sample_excel.xlsx")
     # abstract_list = dataframe["Abstract"].tolist()
 
-    #Method 2 : WOS dataframe
+    # Method 2 : WOS dataframe
     # dataframe = wos_simplify.modify_WOS_dataframe()
     # abstract_list = dataframe["Abstract"].tolist()
 
-    #Method 3 : VOS dataframe
-    dataframe = wos_simplify.modify_VOS_dataframe()
-    id_list = dataframe["id"].tolist()
-    cluster_list = dataframe["cluster"].tolist()
-    abstract_list = dataframe["Abstract"].tolist()
+    # Method 3 : VOS dataframe
+    dataframe_vos = wos_simplify.modify_VOS_dataframe()
+    id_list = dataframe_vos["id"].tolist()
+    cluster_list = dataframe_vos["cluster"].tolist()
+    abstract_list = dataframe_vos["Abstract"].tolist()
 
 
+    # dataframe_pdf = wos_simplify.pdf_dataframe()
+    dataframe_pdf = pdf_capture.pdf_capture()
+    conclusion_list = dataframe_pdf["Conclusion"].tolist()
 
-    #Result of the excel file
+    # Result of the excel file
     # wos_simplify.output()
 
     for abstract in abstract_list:
@@ -47,13 +52,29 @@ def main():
         else:
             result = ts6.summarize(abstract)
 
-        RESULT_LIST.append(result)
+        ABSTRACT_RESULT_LIST.append(result)
+
+    for conclusion in conclusion_list:
+        wordCount = word_count(conclusion)
+
+        if wordCount > LONG_WORD:
+            result = sumy_summarize.fileDataSummary(conclusion, sumy_summarize.TR)
+        elif wordCount > MID_WORD:
+            result = ts6.summarize(conclusion)
+        elif wordCount > MINI_WORD:
+            result = sumy_summarize.fileDataSummary(conclusion, sumy_summarize.TR)
+        else:
+            result = ts6.summarize(conclusion)
+
+        CONCLUSION_RESULT_LIST.append(result)
 
     # Save to the excel
-    data = {'ID': id_list, 'Cluster': cluster_list, 'Abstract': abstract_list, 'AfterSummarize': RESULT_LIST}
+    data = {'ID': id_list, 'Cluster': cluster_list, 'Abstract': abstract_list,
+            'Summarize_Abstract': ABSTRACT_RESULT_LIST, 'Conclusion': conclusion_list,
+            'Summarize_Conclusion': CONCLUSION_RESULT_LIST}
     output_data = pandas.DataFrame(data)
     # output_data = pandas.DataFrame(RESULT_LIST, columns=["AfterSummarize"])
-    output_data.to_csv("result.csv", index=False)
+    output_data.to_csv("result1.csv", index=False)
 
 
 if __name__ == "__main__":
