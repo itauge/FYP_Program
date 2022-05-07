@@ -13,7 +13,7 @@ CONCLUSION_RESULT_LIST = []
 #Absolute Path
 ALL_PDF_PATH = "C:\\Users\itaug\Desktop\FYP\\all_pdf\*.pdf"
 WOS_EXCEL_PATH = "C:\\Users\itaug\Desktop\Keyword1_WithAbstract.xlsx"
-VOS_EXCEL_PATH = "C:\\Users\itaug\Downloads\85_cluster.xls"
+
 
 
 # Count the word
@@ -24,16 +24,9 @@ def word_count(string):
 
 def main():
 
-    # Method 1 : WOS dataframe
-    # dataframe = wos_simplify.modify_WOS_dataframe(WOS_EXCEL_PATH)
-    # abstract_list = dataframe["Abstract"].tolist()
-
-    # Method 2 : VOS dataframe (Better)
-    dataframe_vos = wos_simplify.modify_VOS_dataframe(VOS_EXCEL_PATH)
-    id_list = dataframe_vos["id"].tolist()
-    cluster_list = dataframe_vos["cluster"].tolist()
-    abstract_list = dataframe_vos["Abstract"].tolist()
-
+    #WOS dataframe
+    dataframe = wos_simplify.modify_WOS_dataframe(WOS_EXCEL_PATH)
+    abstract_list = dataframe["Abstract"].tolist()
 
     # dataframe_pdf = wos_simplify.pdf_dataframe()
     dataframe_pdf = pdf_capture.pdf_capture(ALL_PDF_PATH)
@@ -68,7 +61,7 @@ def main():
         CONCLUSION_RESULT_LIST.append(result)
 
     # Save to the excel
-    data = {'ID': id_list, 'Cluster': cluster_list, 'Abstract': abstract_list,
+    data = {'Abstract': abstract_list,
             'Summarize_Abstract': ABSTRACT_RESULT_LIST, 'Conclusion': conclusion_list,
             'Summarize_Conclusion': CONCLUSION_RESULT_LIST}
     output_data = pandas.DataFrame(data)
@@ -77,7 +70,4 @@ def main():
 
 
 if __name__ == "__main__":
-
-
-
     main()

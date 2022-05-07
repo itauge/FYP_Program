@@ -7,9 +7,12 @@ SHEET_NAME = "savedrecs"
 YEAR = int(datetime.date.today().year)
 dataframe = ""
 
+#Pls fill the absolute path
+WOS_EXCEL_PATH = "C:\\Users\itaug\Desktop\Keyword1_WithAbstract.xlsx"
 
-def output():
-    modify_WOS_dataframe()
+
+def modify_WOS_output():
+    modify_WOS_dataframe(WOS_EXCEL_PATH)
     # Output to the excel file
     dataframe.to_excel("output.xlsx", columns=["Author Full Names", "Article Title", "Publication Year",
                                                "Times Cited, WoS Core", "Cited Reference Count", "Abstract",
@@ -36,7 +39,6 @@ def modify_WOS_dataframe(WOS_EXCEL_PATH):
 
     return dataframe
 
-
 def modify_VOS_dataframe(VOS_EXCEL_PATH):
     global dataframe
     dataframe = pd.read_excel(VOS_EXCEL_PATH, sheet_name=SHEET_NAME)
@@ -46,3 +48,6 @@ def pdf_dataframe(PDF_EXCEL_PATH):
     global dataframe
     dataframe = pd.read_excel(PDF_EXCEL_PATH, sheet_name='my dataframe')
     return dataframe
+
+if __name__ == "__main__":
+    modify_WOS_output()
