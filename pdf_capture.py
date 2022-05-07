@@ -56,21 +56,14 @@ def get_keyword(start, end, text):
         except:
             continue
 
-def pdf_capture():
+def pdf_capture(ALL_PDF_PATH):
     # create an empty dataframe, from which keywords from multiple .pdf files will be later appended by rows.
     my_dataframe = pd.DataFrame()
 
-    for files in glob.glob("C:\\Users\itaug\Desktop\FYP\\all_pdf\*.pdf"):
+    for files in glob.glob(ALL_PDF_PATH):
 
             text = extract_text_from_pdf(files)
             text = " ".join(text.split())
-
-            # with pdfplumber.open(files) as pdf:
-            #     page = pdf.pages[0]
-            #     text = page.extract_text()
-            #     text = " ".join(text.split())
-
-            # concluding remarks
 
             # get the file name
             head, tail = os.path.split(files)
@@ -104,13 +97,12 @@ def pdf_capture():
                                                 2: 'Conclusion'})
 
     # change my current working directory
-    save_path = ('C:\\Users\itaug\Desktop\FYP\\all_pdf')
-    os.chdir(save_path)
+    # save_path = ('C:\\Users\itaug\Desktop\FYP\\all_pdf')
+    # os.chdir(save_path)
 
     # extract my dataframe to an .xlsx file!
     my_dataframe.to_excel('sample_excel.xlsx', sheet_name='my dataframe')
-    # print("")
-    # print(my_dataframe)
+
 
     return my_dataframe
 

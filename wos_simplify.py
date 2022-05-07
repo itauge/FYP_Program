@@ -3,9 +3,6 @@ import pandas as pd
 import numpy as np
 import datetime
 
-WOS_EXCEL_PATH = "C:\\Users\itaug\Desktop\Keyword1_WithAbstract.xlsx"
-VOS_EXCEL_PATH = "C:\\Users\itaug\Downloads\85_cluster.xls"
-PDF_EXCEL_PATH = "C:\\Users\itaug\Desktop\FYP\\all_pdf\sample_excel.xlsx"
 SHEET_NAME = "savedrecs"
 YEAR = int(datetime.date.today().year)
 dataframe = ""
@@ -19,7 +16,7 @@ def output():
                                                "Publisher"], index=False)
 
 
-def modify_WOS_dataframe():
+def modify_WOS_dataframe(WOS_EXCEL_PATH):
     global dataframe
     dataframe = pd.read_excel(WOS_EXCEL_PATH, sheet_name=SHEET_NAME)
     cite_mean = dataframe['Times Cited, WoS Core'].mean()
@@ -40,12 +37,12 @@ def modify_WOS_dataframe():
     return dataframe
 
 
-def modify_VOS_dataframe():
+def modify_VOS_dataframe(VOS_EXCEL_PATH):
     global dataframe
     dataframe = pd.read_excel(VOS_EXCEL_PATH, sheet_name=SHEET_NAME)
     return dataframe
 
-def pdf_dataframe():
+def pdf_dataframe(PDF_EXCEL_PATH):
     global dataframe
     dataframe = pd.read_excel(PDF_EXCEL_PATH, sheet_name='my dataframe')
     return dataframe
