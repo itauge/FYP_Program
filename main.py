@@ -11,9 +11,9 @@ ABSTRACT_RESULT_LIST = []
 CONCLUSION_RESULT_LIST = []
 
 #Absolute Path
+# **Notice: The number of the PDF file need to same with column of the WOS_EXCEL_PATH and the name of the PDF must be same with Excel ID number.
 ALL_PDF_PATH = "C:\\Users\itaug\Desktop\FYP\\all_pdf\*.pdf"
-WOS_EXCEL_PATH = "C:\\Users\itaug\Desktop\Keyword1_WithAbstract.xlsx"
-
+UPDATE_WOS_EXCEL_PATH = "C:\\Users\itaug\Desktop\\testfyp\\revise_wos_result.xlsx"
 
 
 # Count the word
@@ -25,7 +25,7 @@ def word_count(string):
 def main():
 
     #WOS dataframe
-    dataframe = wos_simplify.modify_WOS_dataframe(WOS_EXCEL_PATH)
+    dataframe = wos_simplify.modify_WOS_dataframe(UPDATE_WOS_EXCEL_PATH)
     abstract_list = dataframe["Abstract"].tolist()
 
     # dataframe_pdf = wos_simplify.pdf_dataframe()
@@ -66,7 +66,7 @@ def main():
             'Summarize_Conclusion': CONCLUSION_RESULT_LIST}
     output_data = pandas.DataFrame(data)
     # output_data = pandas.DataFrame(RESULT_LIST, columns=["AfterSummarize"])
-    output_data.to_csv("result.csv", index=False)
+    output_data.to_csv("result.csv", index=True)
 
 
 if __name__ == "__main__":

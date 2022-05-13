@@ -101,7 +101,7 @@ def pdf_capture(ALL_PDF_PATH):
     # os.chdir(save_path)
 
     # extract my dataframe to an .xlsx file!
-    my_dataframe.to_excel('sample_excel.xlsx', sheet_name='my dataframe')
+    # my_dataframe.to_excel('sample_excel.xlsx', sheet_name='my dataframe')
 
 
     return my_dataframe
