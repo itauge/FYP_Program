@@ -8,7 +8,9 @@ def summarize(text):
 
     doc = str(text)
 
-    nlp = spacy.load('en_core_web_lg')
+    nlp = spacy.load('en_core_web_trf')
+    #please change to use blow one if error relevant to en_core_web_trf exists
+    #nlp = spacy.load('en_core_web_lg')
     doc = nlp(doc)
 
     #lemmatize words
